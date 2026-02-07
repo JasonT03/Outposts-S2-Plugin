@@ -1,6 +1,7 @@
 package Me.Lunwatchless.outpostsS2Plugin.listeners;
 
 import Me.Lunwatchless.outpostsS2Plugin.manager.CoreManager;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +17,7 @@ public class BlockPlaceListener implements Listener {
 
     @EventHandler
     public void onPlace(BlockPlaceEvent e) {
-        if (e.getItemInHand().getType() == Material.NETHER_STAR) {
+        if (e.getPlayer().getGameMode() == GameMode.CREATIVE && e.getItemInHand().getType() == Material.NETHER_STAR) {
             coreManager.registerCore(e.getBlockPlaced());
         }
     }

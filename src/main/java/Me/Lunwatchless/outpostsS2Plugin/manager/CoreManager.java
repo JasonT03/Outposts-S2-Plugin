@@ -34,6 +34,7 @@ public class CoreManager {
 
         OutpostCore core = new OutpostCore(block.getLocation());
         cores.put(block.getLocation(), core);
+        CoreAppearance.applyAppearance(block, core.getFaction());
 
         CoreAppearance.applyAppearance(block, Faction.NEUTRAL);
     }
