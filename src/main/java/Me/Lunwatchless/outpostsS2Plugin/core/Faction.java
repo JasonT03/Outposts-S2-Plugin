@@ -6,5 +6,6 @@ public enum Faction {
     UNDEAD,
     PILLAGERS,
     NETHER,
-    END
+    END,
+    TEST
 }
