@@ -8,3 +8,12 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Maven
+target/
+
+# OS
+.DS_Store
