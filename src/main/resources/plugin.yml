@@ -1,0 +1,4 @@
+name: Outposts_S2_Plugin
+version: '1.0-SNAPSHOT'
+main: Me.Lunwatchless.outpostsS2Plugin.OutpostsS2Plugin
+api-version: '1.21'
