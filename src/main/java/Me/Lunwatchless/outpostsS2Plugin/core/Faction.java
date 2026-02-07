@@ -7,5 +7,4 @@ public enum Faction {
     PILLAGERS,
     NETHER,
     END,
-    TEST
 }
