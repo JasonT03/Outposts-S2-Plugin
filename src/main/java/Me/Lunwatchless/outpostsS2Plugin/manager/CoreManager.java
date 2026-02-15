@@ -1,6 +1,7 @@
 package Me.Lunwatchless.outpostsS2Plugin.manager;
 
 import Me.Lunwatchless.outpostsS2Plugin.OutpostsS2Plugin;
+import Me.Lunwatchless.outpostsS2Plugin.core.CoreType;
 import Me.Lunwatchless.outpostsS2Plugin.core.Faction;
 import Me.Lunwatchless.outpostsS2Plugin.core.OutpostCore;
 import Me.Lunwatchless.outpostsS2Plugin.util.CoreAppearance;
@@ -10,6 +11,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.TileState;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +26,9 @@ public class CoreManager {
 
     public void registerCore(Block block) {
 
-        TileState state = (TileState) block.getState();
+        block.setType(org.bukkit.Material.NOTE_BLOCK);
+
+        if (!(block.getState() instanceof TileState state)) return;
         state.getPersistentDataContainer().set(
                 coreKey,
                 PersistentDataType.BYTE,
@@ -32,11 +36,33 @@ public class CoreManager {
         );
         state.update();
 
-        OutpostCore core = new OutpostCore(block.getLocation());
-        cores.put(block.getLocation(), core);
-        CoreAppearance.applyAppearance(block, core.getFaction());
+        OutpostCore core = new OutpostCore(
+                block.getLocation(),
+                CoreType.NORMAL
+        );
 
-        CoreAppearance.applyAppearance(block, Faction.NEUTRAL);
+        cores.put(block.getLocation(), core);
+
+        CoreAppearance.applyAppearance(block, core.getFaction());
+    }
+
+    public void registerLoadedCore(OutpostCore core) {
+
+        cores.put(core.getLocation(), core);
+
+        Block block = core.getLocation().getBlock();
+        block.setType(org.bukkit.Material.NOTE_BLOCK);
+
+        if (!(block.getState() instanceof TileState state)) return;
+
+        state.getPersistentDataContainer().set(
+                coreKey,
+                PersistentDataType.BYTE,
+                (byte) 1
+        );
+        state.update();
+
+        CoreAppearance.applyAppearance(block, core.getFaction());
     }
 
     public boolean isCore(Block block) {
@@ -54,5 +80,9 @@ public class CoreManager {
 
     public OutpostCore getCore(Block block) {
         return cores.get(block.getLocation());
+    }
+
+    public Collection<OutpostCore> getAllCores() {
+        return cores.values();
     }
 }

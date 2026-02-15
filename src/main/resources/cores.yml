@@ -1,0 +1,5 @@
+cores:
+  world;x;y;z:
+    faction: NEUTRAL
+    owner: null
+    type: NORMAL

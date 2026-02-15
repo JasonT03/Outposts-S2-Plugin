@@ -11,12 +11,12 @@ public class FactionManager {
 
     private final Map<UUID, Faction> playerFactions = new HashMap<>();
 
-    public void setFaction(Player player, Faction faction) {
-        playerFactions.put(player.getUniqueId(), faction);
-    }
-
     public Faction getFaction(Player player) {
         return playerFactions.getOrDefault(player.getUniqueId(), Faction.NEUTRAL);
+    }
+
+    public void setFaction(Player player, Faction faction) {
+        playerFactions.put(player.getUniqueId(), faction);
     }
 
     public void removePlayer(Player player) {
